@@ -1,32 +1,59 @@
 // pages/index.tsx
-import dynamic from 'next/dynamic';
-import { EthereumWalletConnect } from '../components/EthereumWalletConnect';
-import { SolanaWalletConnect } from '../components/SolanaWalletConnect';
-
-// Dynamically import TonConnectButton with SSR disabled
-const TonConnectButton = dynamic(
-  () => import('@tonconnect/ui-react').then(mod => mod.TonConnectButton),
-  { ssr: false }
-);
+import Head from "next/head";
+import { TonConnectButton } from "@tonconnect/ui-react";
 
 export default function Home() {
+  const handleEvmConnect = () => {
+    window.open("https://metamask.io/", "_blank");
+  };
+
+  const handleSolanaConnect = () => {
+    window.open("https://phantom.app/", "_blank");
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold mb-6">Connect Your Wallet</h1>
+    <>
+      <Head>
+        <title>Gigi Connect</title>
+        <meta name="description" content="Connect your wallets easily" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-      <div className="mb-4">
-        <TonConnectButton />
-      </div>
+      <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-4">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
+          Connect Your Wallet
+        </h1>
 
-      <div className="mb-4">
-        <EthereumWalletConnect />
-      </div>
+        <div className="flex flex-col gap-4 items-center">
+          <TonConnectButton />
 
-      <div className="mb-4">
-        <SolanaWalletConnect />
-      </div>
+          <button
+            onClick={handleEvmConnect}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-xl transition-all"
+          >
+            Connect EVM Wallet
+          </button>
 
-      <p className="text-sm text-gray-400 mt-6">Powered by GigiP2Bot</p>
-    </div>
+          <button
+            onClick={handleSolanaConnect}
+            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-xl transition-all"
+          >
+            Connect Solana Wallet
+          </button>
+        </div>
+
+        <p className="mt-12 text-sm text-gray-400">
+          Powered by GigiP2Bot •{" "}
+          <a
+            href="https://gigi-ton-connect-r6ygrprjb-gigi-labs.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-white"
+          >
+            Live App
+          </a>
+        </p>
+      </main>
+    </>
   );
 }
