@@ -1,15 +1,5 @@
 {
-  "cleanUrls": true,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    }
+  "rewrites": [
+    { "source": "/tonconnect-manifest.json", "destination": "/tonconnect-manifest.json" }
   ]
 }
-
